@@ -15,21 +15,21 @@
     {% endblock %}
 
     <style>
+
     .crossed-out {
       text-decoration: line-through;
       color: #999999;
     }
 
-    /* Additional styles for carousel */
     .carousel-item img {
       width: 100%;
       height: auto; 
     }
 
     .carousel-container {
-  position: relative;
-  margin-bottom: 20px; /* Adjust the value as needed to create the desired space */
-}
+      position: relative;
+      margin-bottom: 20px;
+    }
 
     html, body {
       color: #333333;
@@ -93,7 +93,6 @@
         </div>
       </div>
       <div class="col-md-6" style="font-family: sans-serif">
-        <!-- To-Do List -->
         <ul style="color:#739841;">
           <li>Learn a new programming language</strong></li>
           <li><strike style="color: #666666;">Forget</strike></li>
@@ -142,10 +141,11 @@
 {% endblock %}
 
 {% block carousel %}
-  <!-- Carousel Script -->
+  
   <script>
     $(document).ready(function () {
       $('#carouselExampleSlidesOnly').carousel();
     });
   </script>
+
 {% endblock %}

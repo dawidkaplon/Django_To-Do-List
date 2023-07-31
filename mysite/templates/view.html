@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %} Your lists {% endblock %}
+
+
+{% block content %}
+
+{% if user.todolist.all|length == 0 %}
+    <div class="centered-heading">
+        <h4 style="justify-content: center;"> You don't have any lists! </h4>
+    </div>
+    <br><p>Create new one <a href="/list/create">here</a></p>
+{% else %}
+    <div class="centered-heading">
+        <h5> Choose your list </h5>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        <br>
+        <div class="list-group">
+            {% for list in user.todolist.all %}
+                <div class="list-group-item d-flex justify-content-between">
+                    <a href="/list/{{list.id}}" class="list-group-item list-group-item-action">
+                        {{list.name}}
+                    </a>
+                    <button class="btn btn-secondary border-0" name="{{list.id}}_remove">Remove</button>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+{% endif %}
+
+{% endblock %}

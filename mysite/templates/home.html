@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Home Page
+{% endblock %}
+
+    {% block mainclass %}
+    <style>
+    
+    .main {
+      padding: 1% 30%;
+    }
+
+    </style>
+    {% endblock %}
+
+    <style>
+    .crossed-out {
+      text-decoration: line-through;
+      color: #999999;
+    }
+
+    /* Additional styles for carousel */
+    .carousel-item img {
+      width: 100%;
+      height: auto; 
+    }
+
+    .carousel-container {
+  position: relative;
+  margin-bottom: 20px; /* Adjust the value as needed to create the desired space */
+}
+
+    html, body {
+      color: #333333;
+      font-family:sans-serif;
+    }
+
+    .navbar-nav li a.nav-link,
+    .navbar-brand {
+      color: #ffffff;
+    }
+
+    .navbar-nav li a.nav-link:hover {
+      background-color: #ffffff30;
+      color: #333333; 
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: #333333; 
+    }
+
+    p {
+      color: #666666; 
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      color: #ffffff;
+    }
+
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      color: #ffffff;
+    }
+
+    .btn-primary:focus,
+    .btn-secondary:focus {
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: invert(1);
+    }
+
+    .container {
+      color: black;
+    }
+  </style>
+
+{% block container %}
+{% endblock %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="centered-heading">
+          <h1>Welcome to Your To-Do List</h1>
+          <p style="color: grey; font-family: Verdana; font-size: small;"><i>Never forget important things again!</i></p>
+        </div>
+      </div>
+      <div class="col-md-6" style="font-family: sans-serif">
+        <!-- To-Do List -->
+        <ul style="color:#739841;">
+          <li>Learn a new programming language</strong></li>
+          <li><strike style="color: #666666;">Forget</strike></li>
+          <li>Complete the web development project</strong></li>
+          <li><strike style="color: #666666;">Forget</strike></li>
+          <li>Go for a walk in the park</strong></li>
+          <li><strike style="color: #666666;">Forget</strike></li>
+          <li>Read a book</strong></li>
+        </ul>
+        {% if user.is_authenticated %}
+        <div class="button_group">
+          <a href="/list/view" class="btn btn-secondary longer_button">My Lists</a>
+          <a href="/list/create" class="btn btn-success longer_button">Create a List ➜</a>
+        </div>
+      </div>
+    </div>
+        {% else %}
+        <div class="button_group">
+          <a href="/login" class="btn btn-secondary longer_button">Log In</a>
+          <a href="/register" class="btn btn-success longer_button">Get Started ➜</a>
+        </div>
+      </div>
+    </div>
+        {% endif %}
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <div class="carousel-container">
+          <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="2000">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="https://images.pexels.com/photos/2736499/pexels-photo-2736499.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://images.pexels.com/photos/6690924/pexels-photo-6690924.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="https://images.pexels.com/photos/5717418/pexels-photo-5717418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Third slide">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block carousel %}
+  <!-- Carousel Script -->
+  <script>
+    $(document).ready(function () {
+      $('#carouselExampleSlidesOnly').carousel();
+    });
+  </script>
+{% endblock %}

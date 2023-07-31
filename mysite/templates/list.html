@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ls.name}} {% endblock %}
+
+
+{% block content %}
+{% if ls in user.todolist.all %}
+    {% if ls.item_set.all|length == 0 %}
+        <div class="centered-heading">
+            <h4><i>List is empty!</i></h4>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <br><div class="input-group mb-3">
+                <div class="input-group-prepend">
+                <button class="btn btn-secondary" type="submit" name="add">Add</button>
+                </div>
+                <input type="text" class="form-control" placeholder="New item" aria-label="" aria-describedby="basic-addon1" name="text">
+            </div>
+        </form>
+    {% else %}
+        <div class="centered-heading">
+            <h4><i>"{{ls.name}}"</i></h4>
+        </div>
+        <form id="todo-form" method="POST" style="margin-top: 3%;">
+            {% csrf_token %}
+            {% for item in ls.item_set.all %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" aria-label="Checkbox for following text input" {% if item.complete %}checked{% endif %} name="{{item.id}}_check">
+                        </div>
+                    </div>
+                    <div class="form-control" contenteditable="true">
+                        {% if item.complete %}
+                            <span style="color: green; font-size: large;">✔</span>&nbsp&nbsp&nbsp&nbsp&nbsp
+                        {% else %}
+                            <span style="color: red; font-size: large;">✖</span>&nbsp&nbsp&nbsp&nbsp&nbsp
+                        {% endif %}
+                        {{item.text}}
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="submit" name="{{item.id}}_remove">Remove</button>
+                    </div>
+                </div>
+            {% endfor %}
+            <br><br>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-secondary" type="submit" name="add">Add</button>
+                </div>
+                <input type="text" class="form-control" placeholder="New task" aria-label="" aria-describedby="basic-addon1" name="text">
+            </div>
+        </form>
+    {% endif %}
+{% else %}
+<div class="centered-heading">
+    <h4>You have no authentication to check this list!</h4>
+</div>
+{% if user.is_authenticated %}
+    <div class="centered-heading" style="padding: 3% 0%;">
+        <div class="button_group">
+            <a href="/list/view" class="btn btn-secondary longer_button">My Lists</a>
+            <a href="/list/create" class="btn btn-primary longer_button">Create a List ➜</a>
+          </div>
+    </div>
+{% else %}
+    <div class="centered-heading" style="padding: 3% 0%;">   
+        <div class="button_group">
+            <a href="/login" class="btn btn-secondary longer_button">Log In</a>
+            <a href="/register" class="btn btn-primary longer_button">Get Started ➜</a>
+        </div>
+    </div> 
+{% endif %}
+{% endif %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const todoForm = document.getElementById('todo-form');
+  
+      const checkboxes = todoForm.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', function() {
+          todoForm.submit();
+        });
+      });
+    });
+</script>
+
+{% endblock %}

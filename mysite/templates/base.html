@@ -1,0 +1,238 @@
+<html>
+    <head>
+        <style type="text/css">
+
+            .custom_button {
+                color: #000000; /* Black text color */
+                border-color: #00cc44; /* Green border color */
+            }
+
+            body {
+                /* background-image: url('https://images.pexels.com/photos/7130560/pexels-photo-7130560.jpeg'); */
+                background-image: url('https://img.freepik.com/free-photo/top-view-green-leafs-with-copy-space_23-2148535941.jpg?w=1380&t=st=1690755105~exp=1690755705~hmac=fa235c682b57d0d766b30f720aefb2d50ce1de85c5579d23bf5b4f7eb6324969');
+            }
+
+            .footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 6%;
+                background-color: transparent;
+                padding: 10px;
+                text-align: center;
+                display: flex; /* Added this line to use flexbox */
+                justify-content: center; /* Optional: To center the links horizontally */
+            }
+
+            .links {
+                margin: 5px;
+                margin-left: 25px;
+            }
+
+            /* CSS for the icon and text alignment */
+            .links a {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+                color: black;
+                font-size: 15px;
+                font-family: sans-serif;
+            }
+
+            .links a i {
+                margin-right: 5px;
+            }
+
+            .centered-container {
+                position: relative;
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .centered-container::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(52, 58, 64, 0.2); /* Modify the alpha (last value) to change the opacity */
+                border-radius: inherit;
+                z-index: -1; /* Ensure the pseudo-element is placed behind the content */
+            }
+
+            .main {
+                color: whitesmoke;
+                font-family: sans-serif;
+            }
+
+            .centered-heading {
+                display: flex;
+                justify-content: center;
+            }   
+
+            .navbar-nav li.nav-item {
+                margin-right: 15px;
+            }
+
+            .navbar-collapse {
+                font-size: larger;
+            }
+
+            .navbar-nav {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+
+            /* Button animation when hovered */
+            .navbar-nav li a.nav-link {
+                transition: background-color 0.2s ease-in-out;
+                border-radius: 15px;
+            }
+
+            .navbar-nav li a.nav-link:hover {
+                background-color: #ffffff30;
+            }
+
+            .navbar-secondary {
+                background-color: rgba(128, 128, 128, 0.3); /* Transparent grey color with 70% opacity */
+                padding: 5px 10px; /* Reduce padding to make the navbar smaller */
+                font-size: larger;
+            }
+
+              .navbar-secondary .navbar-nav {
+                display: flex;
+                flex-direction: column; /* Display the links vertically */
+                align-items: flex-start; /* Align links to the left */
+            }
+
+              .navbar-secondary .nav-item {
+                margin-bottom: 0%; /* Add spacing between the links */
+            }
+
+              .navbar-secondary .nav-link {
+                color: black; /* Text color for the links */
+                font-size: 14px; /* Adjust font size as needed */
+                transition: background-color 0.2s ease-in-out;
+                border-radius: 15px;
+            }
+
+              .navbar-secondary .nav-link:hover {
+                background-color: #ffffff30;
+            }
+
+            .button_group {
+                display: flex;
+                justify-content: center;
+            }
+
+            .longer_button {
+                  width: 200px;
+                  margin: 0px 5px;
+            }
+          
+        </style>
+
+
+            {% block mainclass %}
+            
+            <style>
+
+            .main {
+                  padding: 3% 30%;
+            }
+          
+            </style>
+
+            {% endblock %}
+        
+
+    
+        <title> {% block title %} Base title {% endblock %} </title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    </head>
+    
+    <body>
+        {% block navbar %}
+          <nav class="navbar navbar-expand navbar-light bg-dark">
+            <a class="navbar-brand">
+              <img class="logo" src="https://i.ibb.co/WkZ3GLZ/logo.png" width="50" height="40" alt="">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-3">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/home" style="color: whitesmoke;">Home</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="https://dictionary.cambridge.org/dictionary/english/to-do-list" style="color: whitesmoke;">About</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: whitesmoke;">
+                    List
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% if user.is_authenticated %}
+                      <a class="dropdown-item" href="/list/view">My lists</a>
+                      <a class="dropdown-item" href="/list/create">Create a list</a>
+                    {% else %}
+                      <a class="dropdown-item">Unauthorized</a>
+                    {% endif %}
+                  </div>
+                </li>
+              </ul>
+              <ul class="navbar-nav ml-sm-auto">
+                {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/logout" style="color: whitesmoke; border: 1px solid whitesmoke; border-radius: 5px; padding: 5px 10px;">Log Out</a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/login" style="color: whitesmoke; border: 1px solid whitesmoke; border-radius: 5px; padding: 5px 10px;">Log In</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/register" style="color: whitesmoke; border: 1px solid whitesmoke; border-radius: 5px; padding: 5px 10px;">Get Started ➜</a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          </nav>
+        {% endblock %}
+        <div class="footer">
+          <div class="links">
+            <a href="https://github.com/dawidkaplon" target="_blank" style="color: black; font-size: 18px; font-family: sans-serif; padding: 5% 0%;">
+              <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/dawidkaplon/" target="_blank" style="color: black; font-size: 18px; font-family: sans-serif;">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+
+      <div class="main" style="color: black; font-family: sans-serif;">
+        {% block container %}
+        <div class="centered-container" id="content" name="content">
+        {% endblock %}
+        <div class="centered-heading">
+          </div>
+            {% block content %}
+            <div class="content"></div>
+            {% endblock %}
+            
+        </div>
+      </div>
+
+      {% block carousel %}
+      {% endblock %}
+      
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
+
